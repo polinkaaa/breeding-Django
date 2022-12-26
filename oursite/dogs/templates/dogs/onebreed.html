@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600;700&family=Oswald&family=Roboto+Condensed&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <title>{{ breed }}</title>
+</head>
+<body>
+<header class="header">
+    <div class="container">
+        <div class="header-item">
+            <a href="/" class="header-logo"><img class="logo-img" src="/media/photos/img/logo1.png" alt="logo"></a>
+            <nav>
+                <ul class="header-nav">
+                    <li><a href="{% url 'home' %}">Главная</a></li>
+                    <li><a href="{% url 'dog' %}">Собаки</a></li>
+                    <li><a href="{% url 'breed' %}">Породы</a></li>
+                </ul>
+            </nav>
+            <button class="enter">Войти</button>
+        </div>
+    </div>
+</header>
+<hr class="head-main">
+<main>
+    <div class="container">
+        <h1>Порода: {{ breed }}</h1>
+        <div class="dog" style="display:grid; grid-template-columns: repeat(3, 1fr); gap: 50px 20px;">
+
+            {% for item in dogs %}
+            <a href="{% url 'onedog' item.id %}" class="dogs-group" style="border: 1px solid #000000; max-width: fit-content; padding: 10px; border-radius: 10px; text-align: center; text-decoration:none; color:#000000;">
+                <h4 class="title-group">Название породы: {{ item.breed }}</h4>
+                <p class="info-group" style="max-width: 350px;">Имя: {{ item.name }}</p>
+                <p class="info-group">Пол: {{ item.gender }}</p>
+                <p class="info-group">Город: {{ item.owner }}</p>
+                {% if item.photo %}
+                    <img class="dog-photo" width="350" height="300" style="object-fit: cover;" src="{{ item.photo.url }}" >
+                {% else %}
+                    <img class="dog-photo" src="/media/photos/img/withoutphoto.png">
+                {% endif %}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</main>
+<footer>
+    <div class="container">
+            <div class="footer-box">
+                <a href="{% url 'home' %}" class="footer-item">
+                    <img class="footer-logo" src="/media/photos/img/main.png" alt="Logo">
+                </a>
+                <div class="footer-tel">
+                    <ul class="tel li">
+                        <li>
+                            <a href="tel:+79007871313">+ 7 961 972 66-47 Полина</a>
+                        </li>
+                        <li>
+                            <a href="tel:+79007871313">+ 7 905 152 37-29 Александр</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="footer-mail">
+                    <ul class="mail li">
+                        <li>
+                            <a href="mailto:polina_kond@mail.ru">polina_kond@mail.ru</a>
+                        </li>
+                        <li>
+                            <a href="mailto:exz@bk.ru">exz@bk.ru</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</footer>
+</body>
+</html>
